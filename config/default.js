@@ -1,4 +1,4 @@
-export default {
+module.exports = {
   data: {
     ruecommerce: {
       client: 'mysql',
@@ -9,15 +9,14 @@ export default {
         user: '',
       },
     },
-  }
+  },
   graphql: {
     url: '/query',
   },
-  passport: {
-  },
+  passport: {},
   server: {
     backlog: 511,
     hostname: '0.0.0.0',
     port: 3000,
-  }
+  },
 };

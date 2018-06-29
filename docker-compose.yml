@@ -1,17 +1,16 @@
 version: "3"
 services:
   storemanager:
-    build: .
+    build:
+      context: .
+      args:
+        NODE_ENV: development
     container_name: storemanager
     ports:
       - "3000:3000"
       - "9229:9229"
-    environment:
-      - MYSQL_DATABASE=$MYSQL_DATABASE
-      - MYSQL_HOST=$MYSQL_HOST
-      - MYSQL_PASSWORD=$MYSQL_PASSWORD
-      - MYSQL_USER=$MYSQL_USER
-      - NODE_ENV=development
+    env_file:
+      - .env
     volumes:
       - "./src:/opt/ruelala/app/src"
       - "./config:/opt/ruelala/app/config"
@@ -25,12 +24,8 @@ services:
     restart: always
     ports:
       - "3306:3306"
-    environment:
-      - MYSQL_DATABASE=$MYSQL_DATABASE
-      - MYSQL_HOST=$MYSQL_HOST
-      - MYSQL_PASSWORD=$MYSQL_PASSWORD
-      - MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD
-      - MYSQL_USER=$MYSQL_USER
+    env_file:
+      - .env
     volumes:
       - "./docker/volumes/ruecommerce:/var/lib/mysql"
     logging:

@@ -1,10 +1,10 @@
-import path from 'path';
-import nodeExternals from 'webpack-node-externals';
-import NodemonPlugin from 'nodemon-webpack-plugin';
+const path = require('path');
+const nodeExternals = require('webpack-node-externals');
+const NodemonPlugin = require('nodemon-webpack-plugin');
 
 const { NODE_ENV } = process.env;
 const MODE = (NODE_ENV === 'production') ? 'production' : 'development';
-const SOURCE_PATH = path.resolve('./src')
+const SOURCE_PATH = path.resolve('./src');
 const WATCH = (NODE_ENV === 'development');
 
 module.exports = {
@@ -16,22 +16,22 @@ module.exports = {
     server: [
       'babel-polyfill',
       `${SOURCE_PATH}/main.js`,
-    ]
+    ],
   },
   module: {
     rules: [{
       test: /\.(graphql|gql)$/,
       exclude: /node_modules/,
-      loader: 'graphql-tag/loader'
+      loader: 'graphql-tag/loader',
     }, {
       test: /\.js$/i,
       use: 'babel-loader',
       include: [SOURCE_PATH],
     }],
-    noParse: /\.min\.js/
+    noParse: /\.min\.js/,
   },
   externals: [
-    nodeExternals()
+    nodeExternals(),
   ],
   plugins: [
     // This is only ran in watch mode
@@ -49,8 +49,8 @@ module.exports = {
   },
   output: {
     chunkFilename: '[name].[id].js',
-    filename:      '[name].js',
+    filename: '[name].js',
     libraryTarget: 'commonjs2',
-    path:           path.resolve('./dist'),
+    path: path.resolve('./dist'),
   },
 };
