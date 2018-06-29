@@ -8,4 +8,4 @@ const connection = Knex(config.data.ruecommerce);
 // Install knex for Objection
 Model.knex(connection);
 
-export { connection };
+export default connection;

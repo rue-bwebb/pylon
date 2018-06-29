@@ -18,7 +18,7 @@ const app = new Koa();
 const apollo = new ApolloServer({
   resolvers,
   typeDefs,
-})
+});
 
 // Add the Passport middleware
 app.use(passport);
@@ -29,7 +29,7 @@ app.use(router.allowedMethods());
 
 apollo.applyMiddleware({
   app,
-  path: config.graphql.url
+  path: config.graphql.url,
 });
 
 /**
@@ -37,9 +37,7 @@ apollo.applyMiddleware({
  * @type {[type]}
  */
 app.start = async () => {
-  const backlog = config.server.backlog;
-  const hostname = config.server.hostname;
-  const port = config.server.port;
+  const { backlog, hostname, port } = config.server;
 
   try {
     app.server = app.listen(port, hostname, backlog, () => {
@@ -65,7 +63,7 @@ app.stop = async () => {
   } catch (e) {
     console.error('An error occurred while stoping the server', e);
   }
-}
+};
 
 // atexit handler
 process.on('exit', app.stop);

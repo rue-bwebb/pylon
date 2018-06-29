@@ -1,4 +1,7 @@
-build/**
+dist/**
 .cache/**
 coverage/**
 node_modules/**
+config/**
+docker/**
+docs/**
