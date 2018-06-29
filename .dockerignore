@@ -1,0 +1,12 @@
+# Files
+npm-debug.log
+.DS_Store
+Dockerfile
+docker-compose.yml
+
+# Directories
+coverage
+node_modules
+.nyc_output
+.tmp
+.git

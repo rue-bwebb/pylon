@@ -1,0 +1,26 @@
+{
+  "env": {
+    "node": true,
+    "es6": true
+  },
+  "extends": [
+    "airbnb"
+  ],
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "ecmaVersion": 8
+  },
+  "plugins": [],
+  "globals": {},
+  "rules": {
+    "max-len": ["error", {"code": 120, "ignoreUrls": true, "ignoreStrings": true}],
+    "no-debugger": "warn",
+    "no-return-await": "error",
+    "no-console": ["warn", { "allow": ["info", "error", "warn"] }]
+  },
+  "settings": {
+    "import/resolver": {
+      "babel-module": {}
+    }
+  }
+}

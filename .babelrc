@@ -1,0 +1,21 @@
+{
+  "plugins": [
+    "transform-object-rest-spread",
+    ["module-resolver", {
+      "roots": ["./src"],
+    }]
+  ],
+  "presets": [
+    [
+      "env",
+      {
+        "loose": true,
+        "useBuiltIns": true,
+        "targets": {
+          "node": "current"
+        }
+      }
+    ]
+  ],
+  "sourceMaps": true,
+}
