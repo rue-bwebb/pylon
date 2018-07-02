@@ -1,6 +1,6 @@
 import config from 'config';
 import Koa from 'koa';
-import { ApolloServer } from 'apollo-server';
+import { ApolloServer } from 'vendor/apollo-server/packages/apollo-server-koa/dist';
 
 import passport from 'middleware/passport';
 import resolvers from 'api/graphql/resolvers';
@@ -36,7 +36,7 @@ apollo.applyMiddleware({
  * [start description]
  * @type {[type]}
  */
-app.start = async () => {
+app.start = async function () {
   const { backlog, hostname, port } = config.server;
 
   try {
@@ -56,16 +56,22 @@ app.start = async () => {
  * [stop description]
  * @type {[type]}
  */
-app.stop = async () => {
+app.stop = async function () {
   try {
-    await ruecommerce.destroy();
     app.http.close();
+    await ruecommerce.destroy();
   } catch (e) {
     console.error('An error occurred while stoping the server', e);
   }
 };
 
+// nodemon compatibility
+process.once('SIGUSR2', async function () {
+  await app.stop();
+  process.kill(process.pid, 'SIGUSR2');
+});
+
 // atexit handler
-process.on('exit', app.stop);
+process.once('exit', app.stop);
 
 export default app;

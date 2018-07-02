@@ -1,0 +1,48 @@
+{
+  "name": "apollo-server-integration-testsuite",
+  "private": true,
+  "version": "2.0.0-rc.6",
+  "description": "Apollo Server Integrations testsuite",
+  "main": "dist/index.js",
+  "scripts": {
+    "compile": "tsc",
+    "prepublish": "npm run compile"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/apollographql/apollo-server/tree/master/packages/apollo-server-integration-testsuite"
+  },
+  "keywords": [],
+  "author": "Jonas Helfer <jonas@helfer.email>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/apollographql/apollo-server/issues"
+  },
+  "homepage": "https://github.com/apollographql/apollo-server#readme",
+  "engines": {
+    "node": ">=6"
+  },
+  "dependencies": {
+    "apollo-server-core": "^2.0.0-rc.6"
+  },
+  "devDependencies": {
+    "@types/body-parser": "1.17.0",
+    "apollo-engine-reporting-protobuf": "0.0.0-beta.7",
+    "apollo-fetch": "^0.7.0",
+    "apollo-link": "^1.2.2",
+    "apollo-link-http": "^1.5.4",
+    "apollo-link-persisted-queries": "^0.2.1",
+    "apollo-server-env": "^2.0.0-rc.6",
+    "body-parser": "^1.18.3",
+    "graphql-extensions": "^0.1.0-rc.0",
+    "graphql-subscriptions": "^0.5.8",
+    "graphql-tag": "^2.9.2",
+    "js-sha256": "^0.9.0",
+    "subscriptions-transport-ws": "^0.9.11",
+    "ws": "^5.2.0"
+  },
+  "typings": "dist/index.d.ts",
+  "typescript": {
+    "definition": "dist/index.d.ts"
+  }
+}

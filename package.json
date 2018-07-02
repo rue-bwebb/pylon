@@ -5,6 +5,7 @@
   "main": "index.js",
   "private": true,
   "scripts": {
+    "build": "webpack --config ./webpack.config.js",
     "start": "pm2-docker start process.config.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint .",
@@ -41,10 +42,10 @@
     "graphql": "^0.13.2",
     "knex": "^0.14.6",
     "koa": "^2.5.1",
+    "koa-passport": "^4.1.0",
     "koa-router": "^7.4.0",
     "mysql": "^2.15.0",
     "objection": "^1.1.10",
-    "passport": "^0.4.0",
     "pm2": "^2.10.4"
   }
 }

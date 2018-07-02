@@ -2,10 +2,10 @@ module.exports = {
   data: {
     ruecommerce: {
       connection: {
-        database: 'MYSQL_DATABASE',
+        database: 'RUECOMMERCE_DATABASE',
         host: 'MYSQL_HOST',
-        password: 'MYSQL_PASSWORD',
-        user: 'MYSQL_USER',
+        password: 'RUECOMMERCE_PASSWORD',
+        user: 'RUECOMMERCE_USER',
       },
     },
   },

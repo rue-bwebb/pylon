@@ -1,4 +1,4 @@
-import passport from 'passport';
+import passport from 'koa-passport';
 
 /**
  * Initializes all Passport-related functionality and authentication strategies
