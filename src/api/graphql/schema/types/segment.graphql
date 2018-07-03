@@ -6,3 +6,8 @@ type Segment {
   segmentType: SegmentType!
   shortDescription: String!
 }
+
+type Segments {
+  meta: PagingMeta!
+  objects: [Segment]!
+}

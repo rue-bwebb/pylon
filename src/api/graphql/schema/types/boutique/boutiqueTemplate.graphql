@@ -1,11 +1,10 @@
-#import "../../interfaces/paging.graphql"
-
 type BoutiqueTemplate {
   displayName: String!
   name: String!
   path: String!
 }
 
-type BoutiqueTemplates implements PagedResource {
+type BoutiqueTemplates {
+  meta: PagingMeta!
   objects: [BoutiqueTemplate]!
 }

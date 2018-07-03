@@ -1,5 +1,3 @@
-#import "../../interfaces/paging.graphql"
-
 type ProductContext {
   baseSort: Int!
   boutiqueContext: String!
@@ -11,6 +9,7 @@ type ProductContext {
   skus: [String]!
 }
 
-type ProductContexts implements PagedResource {
+type ProductContexts {
+  meta: PagingMeta!
   objects: [ProductContext]!
 }

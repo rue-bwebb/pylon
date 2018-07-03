@@ -1,11 +1,3 @@
-#import "../interfaces/paging.graphql"
-#import "./product/productAttribute.graphql"
-#import "./product/productImage.graphql"
-#import "./product/productInfo.graphql"
-#import "./product/productTag.graphql"
-#import "./returnPolicy.graphql"
-#import "./sku.graphql"
-
 type Product {
   active: Boolean!
   attributes: [ProductAttribute]!
@@ -28,6 +20,7 @@ type Product {
   tags: [ProductTag]!
 }
 
-type Products implements PagedResource {
+type Products {
+  meta: PagingMeta!
   objects: [Product]!
 }

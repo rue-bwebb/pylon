@@ -1,5 +1,3 @@
-#import "../interfaces/paging.graphql"
-
 type BaseSort {
   bigDoor: Boolean!
   boutiqueContext: String!
@@ -10,6 +8,7 @@ type BaseSort {
   sort: Int!
 }
 
-type BaseSortSet implements PagedResource {
+type BaseSortSet {
+  meta: PagingMeta!
   objects: [BaseSort]!
 }

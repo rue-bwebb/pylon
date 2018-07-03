@@ -1,8 +1,3 @@
-#import "./boutique/boutiqueInfo.graphql"
-#import "./boutique/boutiqueSiteSection.graphql"
-#import "./boutique/boutiqueTag.graphql"
-#import "../interfaces/paging.graphql"
-
 type Boutique {
   backOrderEnabled: Boolean!
   boutiqueContexts: [String]!
@@ -27,6 +22,7 @@ type Boutique {
   tags: [BoutiqueTag]!
 }
 
-type Boutiques implements PagedResource {
+type Boutiques {
+  meta: PagingMeta!
   objects: [Boutique]!
 }

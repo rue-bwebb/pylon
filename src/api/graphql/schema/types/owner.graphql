@@ -1,5 +1,3 @@
-#import "../interfaces/paging.graphql"
-
 type Owner {
   email: String!
   firstName: String!
@@ -7,6 +5,7 @@ type Owner {
   lastName: String!
 }
 
-type Owners implements PagedResource {
+type Owners {
+  meta: PagingMeta!
   objects: [Owner]!
 }

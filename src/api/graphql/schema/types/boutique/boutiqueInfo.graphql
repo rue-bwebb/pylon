@@ -1,5 +1,3 @@
-#import "../owner.graphql"
-
 type BoutiqueInfo {
   boutiqueOwners: [Owner]!
   notes: String

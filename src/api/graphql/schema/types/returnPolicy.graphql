@@ -1,11 +1,10 @@
-#import "../interfaces/paging.graphql"
-
 type ReturnPolicy {
   longDescription: String!
   name: String!
   shortDescription: String!
 }
 
-type ReturnPolicies implements PagedResource {
+type ReturnPolicies {
+  meta: PagingMeta!,
   objects: [ReturnPolicy]!
 }
