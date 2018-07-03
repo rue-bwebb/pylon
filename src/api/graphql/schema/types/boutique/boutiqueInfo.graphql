@@ -1,0 +1,9 @@
+#import "../owner.graphql"
+
+type BoutiqueInfo {
+  boutiqueOwners: [Owner]!
+  notes: String
+  pk: ID!
+  prepPlan: String
+  salesPlan: String
+}

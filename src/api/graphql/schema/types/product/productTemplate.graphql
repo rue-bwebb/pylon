@@ -1,0 +1,11 @@
+#import "../../interfaces/paging.graphql"
+
+type ProductTemplate {
+  displayName: String!
+  name: String!
+  path: String!
+}
+
+type ProductTemplates implements PagedResource {
+  objects: [ProductTemplate]!
+}

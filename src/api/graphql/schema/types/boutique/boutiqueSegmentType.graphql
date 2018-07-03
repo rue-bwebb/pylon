@@ -1,0 +1,7 @@
+type BoutiqueSegmentType {
+  description: String!
+  id: ID!
+  label: String!
+  name: String!
+  sortable: Boolean!
+}

@@ -1,6 +1,0 @@
-type ReturnPolicy {
-  longDescription: String!
-  name: String!
-  resourceUri: String!
-  shortDescription: String!
-}

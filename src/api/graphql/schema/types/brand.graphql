@@ -1,0 +1,7 @@
+type Brand {
+  businessId: Int!
+  id: ID!
+  longDescription: String!
+  name: String!
+  shortDescription: String!
+}

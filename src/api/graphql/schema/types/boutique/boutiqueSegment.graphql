@@ -1,0 +1,15 @@
+#import "./boutiqueSegmentType.graphql"
+#import "../../interfaces/paging.graphql"
+
+type BoutiqueSegment {
+  createdDate: String!
+  id: ID!
+  longDescription: String!
+  name: String!
+  segmentType: BoutiqueSegmentType!
+  shortDescription: String!
+}
+
+type BoutiqueSegments implements PagedResource {
+  objects: [BoutiqueSegment]!
+}

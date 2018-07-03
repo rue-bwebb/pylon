@@ -1,0 +1,5 @@
+#import "./queries.graphql"
+
+schema {
+  query: Query
+}

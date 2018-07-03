@@ -1,0 +1,28 @@
+#import "./types/ats.graphql"
+#import "./types/baseSort.graphql"
+#import "./types/boutique.graphql"
+#import "./types/boutiqueContext.graphql"
+#import "./types/boutiqueTemplate.graphql"
+#import "./types/dayPart.graphql"
+#import "./types/owners.graphql"
+#import "./types/product.graphql"
+#import "./types/productContext.graphql"
+#import "./types/productTemplate.graphql"
+#import "./types/returnPolicy.graphql"
+#import "./type/boutique/boutiqueSegment.graphql"
+
+type Query {
+  ats(): AtsList!
+  baseSort(boutiqueContext: ID!, segmentId: ID!): BaseSortSet!
+  boutique(businessId: ID!): Boutiques!
+  boutiqueContext(businessId: ID!): BoutiqueContexts!
+  boutiqueTemplate(): BoutiqueTemplates!
+  dayPart(startsAfter: String!, startsBefore: String!): DayParts!
+  owners(): Owners!
+  product(idList: [ID]!): Products!
+  productContext(boutiqueContext: ID!): ProductContexts!
+  productTemplate(): ProductTemplates!
+  returnPolicy(): ReturnPolicies!
+  search(allForBoutique: ID, boutiqueContextId: ID, updatedSince: String): Products!
+  segment(name: String!, type: String!): Segments!
+}

@@ -1,5 +1,0 @@
-type Sku {
-  active: Boolean!
-  activeVendor:
-  attributes: [SkuAttribute]!
-}

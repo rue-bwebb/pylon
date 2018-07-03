@@ -1,0 +1,8 @@
+type Segment {
+  createdDate: String!
+  id: ID!
+  longDescription: String!
+  name: String!
+  segmentType: SegmentType!
+  shortDescription: String!
+}

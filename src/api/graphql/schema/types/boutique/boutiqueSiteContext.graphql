@@ -1,0 +1,8 @@
+#import "../returnPolicy.graphql"
+#import "./store.graphql"
+
+type BoutiqueSiteContext {
+  key: String!
+  returnPolicy: ReturnPolicy!
+  store: Store!
+}

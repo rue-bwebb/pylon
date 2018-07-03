@@ -1,0 +1,10 @@
+type SkuAttribute {
+  displayValue: String!
+  drivesSku: Boolean!
+  key: String!
+  label: String!
+  pk: ID!
+  sort: Int!
+  value: String!
+  _id: ID!
+}

@@ -1,0 +1,23 @@
+type Boutique {
+  backOrderEnabled: Boolean!
+  boutiqueContexts: [String]!
+  businessId: ID!
+  createDate: String!
+  createdBy: String
+  emailBodyFriendlyName: String!
+  emailFriendlyName: String!
+  endDate: String!
+  info: [BoutiqueInfo]!
+  longDescription: String!
+  name: String!
+  pk: ID!
+  previewDate: String!
+  productCount: Int!
+  proposedDate: String
+  shippingMethods: String!
+  siteSections: [BoutiqueSiteSection]!
+  startDate: String!
+  status: String!
+  store: String!
+  tags: [BoutiqueTag]!
+}

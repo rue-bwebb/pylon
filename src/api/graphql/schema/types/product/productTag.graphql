@@ -1,0 +1,6 @@
+type ProductTag {
+  deprecated: Boolean!
+  group: String!
+  id: ID!
+  value: String!
+}

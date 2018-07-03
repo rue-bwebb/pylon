@@ -1,0 +1,17 @@
+#import "../../interfaces/paging.graphql"
+#import "./productGroupContext.graphql"
+
+type ProductContext {
+  baseSort: Int!
+  boutiqueContext: String!
+  lowInventoryLimit: Int!
+  maxPerCart: Int!
+  pk: ID!
+  product: String!
+  productGroupContext: ProductGroupContext
+  skus: [String]!
+}
+
+type ProductContexts implements PagedResource {
+  objects: [ProductContext]!
+}

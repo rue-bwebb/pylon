@@ -1,0 +1,10 @@
+#import "../interfaces/paging.graphql"
+
+type Ats {
+  skuNumber: String!
+  value: Int!
+}
+
+type AtsList implements PagedResource {
+  objects: [Ats]!
+}

@@ -1,0 +1,11 @@
+#import "../interfaces/paging.graphql"
+
+type DayPart {
+  id: ID!
+  siteContext: String!
+  start: String!
+}
+
+type DayParts implements PagedResource {
+  objects: [DayPart]!
+}
