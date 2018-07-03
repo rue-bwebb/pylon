@@ -1,5 +1,7 @@
+type Meta {
+  count: Int!
+}
+
 type PagedResource {
-  meta: {
-    count: Int!
-  }
+  meta: Meta!
 }

@@ -1,5 +1,4 @@
 #import "../../interfaces/paging.graphql"
-#import "./productGroupContext.graphql"
 
 type ProductContext {
   baseSort: Int!
@@ -8,7 +7,7 @@ type ProductContext {
   maxPerCart: Int!
   pk: ID!
   product: String!
-  productGroupContext: ProductGroupContext
+  productGroupContext: String
   skus: [String]!
 }
 

@@ -6,7 +6,7 @@ import passport from 'middleware/passport';
 import resolvers from 'api/graphql/resolvers';
 import router from 'router';
 import ruecommerce from 'data/connectors/ruecommerce';
-import typeDefs from 'api/graphql/schema';
+import typeDefs from 'api/graphql/schema/schema.graphql';
 import uncaughtExceptionHandler from 'utils/uncaughtExceptionHandler';
 import unhandledRejectionHandler from 'utils/unhandledRejectionHandler';
 

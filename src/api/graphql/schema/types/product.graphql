@@ -12,11 +12,7 @@ type Product {
   brand: Brand!
   businessId: ID!
   forceSoldOut: Boolean!
-  images: [{
-    black: [ProductImage]!
-    default: [ProductImage]!
-    gray: [ProductImage]!
-  }]!
+  images: [ProductImageSet]!
   info: ProductInfo
   isExperience: Boolean!
   longDescription: String!

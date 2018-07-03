@@ -2,42 +2,42 @@ export default {
   Query: {
     ats: async function (root, args, context, info) {
       return {};
-    }, // Ats!
+    }, // AtsList!
     baseSort: async function (root, args, context, info) {
       return {};
-    }, // BaseSort!
+    }, // BaseSortSet!
     boutique: async function (root, args, context, info) {
       return {};
-    }, // Boutique!
+    }, // Boutiques!
     boutiqueContext: async function (root, args, context, info) {
       return {};
-    }, // BoutiqueContext!
+    }, // BoutiqueContexts!
     boutiqueTemplate: async function (root, args, context, info) {
       return {};
-    }, // BoutiqueTemplate!
+    }, // BoutiqueTemplates!
     dayPart: async function (root, args, context, info) {
       return {};
-    }, // DayPart!
+    }, // DayParts!
     owners: async function (root, args, context, info) {
       return {};
     }, // Owners!
     product: async function (root, args, context, info) {
       return {};
-    }, // Product!
+    }, // Products!
     productContext: async function (root, args, context, info) {
       return {};
-    }, // ProductContext!
+    }, // ProductContexts!
     productTemplate: async function (root, args, context, info) {
       return {};
     }, // ProductTemplates!
     returnPolicy: async function (root, args, context, info) {
       return {};
-    }, // ReturnPolicy!
+    }, // ReturnPolicies!
     search: async function (root, args, context, info) {
       return {};
-    }, // Product!
+    }, // Products!
     segment: async function (root, args, context, info) {
       return {};
-    }, // Segment!
-  }
+    }, // Segments!
+  },
 };

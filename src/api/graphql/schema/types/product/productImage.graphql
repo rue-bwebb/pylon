@@ -2,3 +2,9 @@ type ProductImage {
   caption: String!
   url: String!
 }
+
+type ProductImageSet {
+  black: [ProductImage]!
+  default: [ProductImage]!
+  gray: [ProductImage]!
+}

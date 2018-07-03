@@ -1,6 +1,6 @@
 #import "./boutique/boutiqueInfo.graphql"
 #import "./boutique/boutiqueSiteSection.graphql"
-#import "./boutique/boutiqueTag"
+#import "./boutique/boutiqueTag.graphql"
 #import "../interfaces/paging.graphql"
 
 type Boutique {

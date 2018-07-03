@@ -1,4 +1,4 @@
-#import "./queries.graphql"
+#import "./query.graphql"
 
 schema {
   query: Query
