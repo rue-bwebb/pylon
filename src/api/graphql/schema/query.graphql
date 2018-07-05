@@ -38,7 +38,7 @@ type Query {
   boutiqueTemplate: BoutiqueTemplates!
   dayPart(startsAfter: String!, startsBefore: String!): DayParts!
   owners: Owners!
-  product(idList: [ID]!): Products!
+  product(idList: [ID]!): [Product]!
   productContext(boutiqueContext: ID!): ProductContexts!
   productTemplate: ProductTemplates!
   returnPolicy: ReturnPolicies!

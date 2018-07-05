@@ -40,12 +40,13 @@
     "apollo-server": "^2.0.0-rc.6",
     "config": "^1.30.0",
     "graphql": "^0.13.2",
+    "join-monster": "^2.0.16",
+    "join-monster-graphql-tools-adapter": "0.0.3",
     "knex": "^0.14.6",
     "koa": "^2.5.1",
     "koa-passport": "^4.1.0",
     "koa-router": "^7.4.0",
     "mysql": "^2.15.0",
-    "objection": "^1.1.10",
     "pm2": "^2.10.4"
   }
 }

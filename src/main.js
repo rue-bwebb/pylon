@@ -3,10 +3,9 @@ import Koa from 'koa';
 import { ApolloServer } from 'vendor/apollo-server/packages/apollo-server-koa/dist';
 
 import passport from 'middleware/passport';
-import resolvers from 'api/graphql/resolvers';
 import router from 'router';
-import ruecommerce from 'data/connectors/ruecommerce';
-import typeDefs from 'api/graphql/schema/schema.graphql';
+import ruecommerce from 'data/services/ruecommerce';
+import schema from 'data/dao/joinMonster';
 import uncaughtExceptionHandler from 'utils/uncaughtExceptionHandler';
 import unhandledRejectionHandler from 'utils/unhandledRejectionHandler';
 
@@ -15,10 +14,7 @@ process.on('uncaughtException', uncaughtExceptionHandler);
 process.on('unhandledRejection', unhandledRejectionHandler);
 
 const app = new Koa();
-const apollo = new ApolloServer({
-  resolvers,
-  typeDefs,
-});
+const apollo = new ApolloServer({ schema });
 
 // Add the Passport middleware
 app.use(passport);
@@ -58,7 +54,10 @@ app.start = async function () {
  */
 app.stop = async function () {
   try {
-    app.http.close();
+    if (app.http) {
+      app.http.close();
+    }
+
     await ruecommerce.destroy();
   } catch (e) {
     console.error('An error occurred while stoping the server', e);

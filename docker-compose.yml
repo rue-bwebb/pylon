@@ -15,20 +15,20 @@ services:
       - "./src:/opt/ruelala/app/src"
       - "./config:/opt/ruelala/app/config"
       - "./test:/opt/ruelala/app/test"
-    depends_on:
-      - ruecommerce
+    # depends_on:
+    #   - ruecommerce
     command: ['npm', 'start']
-  ruecommerce:
-    image: mysql:5
-    container_name: ruecommerce
-    restart: always
-    ports:
-      - "3306:3306"
-    env_file:
-      - .env
-    environment:
-      - MYSQL_ROOT_PASSWORD=supersecret
-    volumes:
-      - "./docker/volumes/ruecommerce:/var/lib/mysql"
-    logging:
-      driver: "none"
+  # ruecommerce:
+  #   image: mysql:5.6
+  #   container_name: ruecommerce
+  #   restart: always
+  #   ports:
+  #     - "3306:3306"
+  #   env_file:
+  #     - .env
+  #   environment:
+  #     - MYSQL_ROOT_PASSWORD=supersecret
+  #   volumes:
+  #     - "./docker/volumes/ruecommerce:/var/lib/mysql"
+  #   logging:
+  #     driver: "none"

@@ -1,3 +1,7 @@
+import joinMonster from 'join-monster';
+
+import ruecommerce from 'data/services/ruecommerce';
+
 export default {
   Query: {
     ats: async function (root, args, context, info) {
@@ -21,9 +25,12 @@ export default {
     owners: async function (root, args, context, info) {
       return {};
     }, // Owners!
-    product: async function (root, args, context, info) {
-      return {};
-    }, // Products!
+    product: (root, args, ctx, resolveInfo) => {
+      return joinMonster(resolveInfo, ctx, async (sql) => {
+        const result = await ruecommerce.raw(sql);
+        return result[0];
+      }, { dialect: 'mysql' });
+    },
     productContext: async function (root, args, context, info) {
       return {};
     }, // ProductContexts!

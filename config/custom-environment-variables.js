@@ -1,5 +1,5 @@
 module.exports = {
-  data: {
+  services: {
     ruecommerce: {
       connection: {
         database: 'RUECOMMERCE_DATABASE',

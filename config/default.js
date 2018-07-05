@@ -1,5 +1,14 @@
 module.exports = {
-  data: {
+  graphql: {
+    url: '/query',
+  },
+  passport: {},
+  server: {
+    backlog: 511,
+    hostname: '0.0.0.0',
+    port: 8000,
+  },
+  services: {
     ruecommerce: {
       client: 'mysql',
       connection: {
@@ -9,14 +18,5 @@ module.exports = {
         user: '',
       },
     },
-  },
-  graphql: {
-    url: '/query',
-  },
-  passport: {},
-  server: {
-    backlog: 511,
-    hostname: '0.0.0.0',
-    port: 8000,
   },
 };

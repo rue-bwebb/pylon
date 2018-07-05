@@ -1,23 +1,23 @@
 type Product {
   active: Boolean!
-  attributes: [ProductAttribute]!
-  brand: Brand!
+  # attributes: [ProductAttribute]!
+  # brand: Brand!
   businessId: ID!
   forceSoldOut: Boolean!
-  images: [ProductImageSet]!
-  info: ProductInfo
+  # images: [ProductImageSet]!
+  # info: ProductInfo
   isExperience: Boolean!
   longDescription: String!
   name: String!
   numAngles: Int!
   originalName: String!
-  productContexts: [String]!
-  returnPolicy: [ReturnPolicy]
+  # productContexts: [ProductContext]!
+  # returnPolicy: [ReturnPolicy]
   shortDescription: String!
   showMsrp: Boolean!
   showReturnPolicy: Boolean!
-  skus: [Sku]!
-  tags: [ProductTag]!
+  # skus: [Sku]!
+  # tags: [ProductTag]!
 }
 
 type Products {
