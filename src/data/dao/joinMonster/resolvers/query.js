@@ -1,49 +1,50 @@
 import joinMonster from 'join-monster';
 
+import mysql from 'data/dao/joinMonster/dialects/mysql';
 import ruecommerce from 'data/services/ruecommerce';
 
 export default {
   Query: {
-    ats: async function (root, args, context, info) {
+    async ats(root, args, context, info) {
       return {};
     }, // AtsList!
-    baseSort: async function (root, args, context, info) {
+    async baseSort(root, args, context, info) {
       return {};
     }, // BaseSortSet!
-    boutique: async function (root, args, context, info) {
+    async boutique(root, args, context, info) {
       return {};
     }, // Boutiques!
-    boutiqueContext: async function (root, args, context, info) {
+    async boutiqueContext(root, args, context, info) {
       return {};
     }, // BoutiqueContexts!
-    boutiqueTemplate: async function (root, args, context, info) {
+    async boutiqueTemplate(root, args, context, info) {
       return {};
     }, // BoutiqueTemplates!
-    dayPart: async function (root, args, context, info) {
+    async dayPart(root, args, context, info) {
       return {};
     }, // DayParts!
-    owners: async function (root, args, context, info) {
+    async owners(root, args, context, info) {
       return {};
     }, // Owners!
     product: (root, args, ctx, resolveInfo) => {
       return joinMonster(resolveInfo, ctx, async (sql) => {
         const result = await ruecommerce.raw(sql);
         return result[0];
-      }, { dialect: 'mysql' });
+      }, { dialectModule: mysql });
     },
-    productContext: async function (root, args, context, info) {
+    async productContext(root, args, context, info) {
       return {};
     }, // ProductContexts!
-    productTemplate: async function (root, args, context, info) {
+    async productTemplate(root, args, context, info) {
       return {};
     }, // ProductTemplates!
-    returnPolicy: async function (root, args, context, info) {
+    async returnPolicy(root, args, context, info) {
       return {};
     }, // ReturnPolicies!
-    search: async function (root, args, context, info) {
+    async search(root, args, context, info) {
       return {};
     }, // Products!
-    segment: async function (root, args, context, info) {
+    async segment(root, args, context, info) {
       return {};
     }, // Segments!
   },

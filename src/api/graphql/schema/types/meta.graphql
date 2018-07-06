@@ -1,3 +1,7 @@
 type PagingMeta {
   count: Int!
 }
+
+type PageInfo {
+  hasNextPage: Boolean!
+}

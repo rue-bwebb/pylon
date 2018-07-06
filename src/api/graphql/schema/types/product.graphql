@@ -20,7 +20,12 @@ type Product {
   # tags: [ProductTag]!
 }
 
+type ProductEdge {
+  cursor: String!
+  node: Product
+}
+
 type Products {
-  meta: PagingMeta!
-  objects: [Product]!
+  edges: [ProductEdge]
+  pageInfo: PageInfo
 }

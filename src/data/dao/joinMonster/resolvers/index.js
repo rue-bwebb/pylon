@@ -3,7 +3,7 @@ import Query from 'data/dao/joinMonster/resolvers/query';
 
 const resolvers = {
   ...Product,
-  ...Query
+  ...Query,
 };
 
 export default resolvers;

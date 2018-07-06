@@ -65,7 +65,7 @@ app.stop = async function () {
 };
 
 // nodemon compatibility
-process.once('SIGUSR2', async function () {
+process.once('SIGUSR2', async () => {
   await app.stop();
   process.kill(process.pid, 'SIGUSR2');
 });

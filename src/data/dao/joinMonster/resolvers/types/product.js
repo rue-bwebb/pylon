@@ -7,8 +7,4 @@ export default {
     //   };
     // },
   },
-  Products: {
-    meta: (products) => products,
-    objects: (products) => products,
-  },
 };
