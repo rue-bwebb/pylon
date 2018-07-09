@@ -4,7 +4,7 @@ type Product {
   # brand: Brand!
   businessId: ID!
   forceSoldOut: Boolean!
-  # images: [ProductImageSet]!
+  images: ProductImageSet!
   # info: ProductInfo
   isExperience: Boolean!
   longDescription: String!
@@ -25,7 +25,7 @@ type ProductEdge {
   node: Product
 }
 
-type Products {
+type PaginatedProducts {
   edges: [ProductEdge]
   pageInfo: PageInfo
 }

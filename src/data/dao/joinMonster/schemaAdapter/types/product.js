@@ -16,9 +16,6 @@ export default {
       forceSoldOut: {
         sqlColumn: 'force_sold_out',
       },
-      // images: {
-      //   sqlJoin: (productsTable, imagesTable) => ``,
-      // },
       // info: {
       //   sqlJoin: (productsTable, infoTable) => ``,
       // },

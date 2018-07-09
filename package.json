@@ -38,6 +38,7 @@
   },
   "dependencies": {
     "apollo-server": "^2.0.0-rc.6",
+    "babel-plugin-transform-class-properties": "^6.24.1",
     "config": "^1.30.0",
     "graphql": "^0.13.2",
     "join-monster": "^2.0.16",

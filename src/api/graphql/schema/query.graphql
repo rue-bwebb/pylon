@@ -44,10 +44,10 @@ type Query {
     after: String,
     last: Int,
     before: String
-  ): Products!
+  ): PaginatedProducts!
   productContext(boutiqueContext: ID!): ProductContexts!
   productTemplate: ProductTemplates!
   returnPolicy: ReturnPolicies!
-  search(allForBoutique: ID, boutiqueContextId: ID, updatedSince: String): Products!
+  search(allForBoutique: ID, boutiqueContextId: ID, updatedSince: String): PaginatedProducts!
   segment(name: String!, type: String!): Segments!
 }
