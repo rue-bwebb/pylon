@@ -1,5 +1,5 @@
 let storemanager = {
-  args: ['run', 'build'],
+  args: ['run', 'dev'],
   combine_logs: true,
   error_file: '/var/log/ruelala/storemanager/pm2.err.log',
   name: 'storemanager.ruelala',
