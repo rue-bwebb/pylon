@@ -38,8 +38,8 @@ type Query {
   boutiqueTemplate: BoutiqueTemplates!
   dayPart(startsAfter: String!, startsBefore: String!): DayParts!
   owners: Owners!
-  product(
-    idList: [ID],
+  products(
+    ids: [ID],
     first: Int,
     after: String,
     last: Int,

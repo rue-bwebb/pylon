@@ -26,7 +26,7 @@ export default {
     async owners(root, args, context, info) {
       return {};
     }, // Owners!
-    product: (root, args, ctx, resolveInfo) => {
+    products: (root, args, ctx, resolveInfo) => {
       return joinMonster(resolveInfo, ctx, async (sql) => {
         const result = await ruecommerce.raw(sql);
         return result[0];

@@ -1,14 +1,14 @@
 export default {
   Query: {
     fields: {
-      product: {
+      products: {
         sqlPaginate: true,
         sortKey: {
           order: 'DESC',
           key: 'id',
         },
         where: (table, args) => {
-          return !!args.idList ? `${table}.id IN (${args.idList.join(', ')})` : ''
+          return !!args.ids ? `${table}.id IN (${args.ids.join(', ')})` : ''
         },
       },
     },
