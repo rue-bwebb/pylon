@@ -10,13 +10,13 @@ export default {
         sqlColumn: 'feature_complete',
       },
       featureCompleteDate: {
-        sqlColumn: 'feature_complet_date',
+        sqlColumn: 'feature_complete_date',
       },
       imagingCompleteDate: {
         sqlColumn: 'imaging_complete_date',
       },
       note: {
-        sqlColumn: 'note',
+        sqlColumn: 'notes',
       },
       photoCompleteDate: {
         sqlColumn: 'photo_complete_date',

@@ -6,9 +6,6 @@ export default {
       active: {
         sqlColumn: 'active',
       },
-      completeResourceUri: {
-        sqlColumn: 'complete_resource_uri',
-      },
       features: {
         sqlColumn: 'features',
       },
