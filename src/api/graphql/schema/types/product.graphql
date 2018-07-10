@@ -16,7 +16,7 @@ type Product {
   shortDescription: String!
   showMsrp: Boolean!
   showReturnPolicy: Boolean!
-  # skus: [Sku]!
+  skus: [Sku]!
   # tags: [ProductTag]!
 }
 

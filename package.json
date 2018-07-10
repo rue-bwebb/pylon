@@ -5,15 +5,19 @@
   "main": "index.js",
   "private": true,
   "scripts": {
-    "compile": "webpack -p --config ./webpack.config.js",
-    "dev": "webpack --config ./webpack.config.js",
+    "compile": "webpack --config ./webpack.config.js",
+    "dev": "npm run compile && node index.js",
     "start": "pm2-docker start process.config.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
   },
   "keywords": [
-    "nodejs"
+    "nodejs",
+    "koa",
+    "graphql",
+    "join-monster",
+    "apollo-server"
   ],
   "author": "Rue La La",
   "engines": {

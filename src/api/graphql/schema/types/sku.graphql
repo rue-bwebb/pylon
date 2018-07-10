@@ -1,6 +1,6 @@
 type Sku {
   active: Boolean!
-  activeVendor: ActiveVendor
+  # activeVendor: ActiveVendor
   # attributes: [SkuAttribute]!
   completeResourceUri: String!
   features: String!

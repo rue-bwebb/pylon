@@ -1,16 +1,14 @@
 const path = require('path');
 const nodeExternals = require('webpack-node-externals');
-const NodemonPlugin = require('nodemon-webpack-plugin');
+// const NodemonPlugin = require('nodemon-webpack-plugin');
 
 const { NODE_ENV } = process.env;
 const MODE = (NODE_ENV === 'production') ? 'production' : 'development';
 const SOURCE_PATH = path.resolve('./src');
-const WATCH = (NODE_ENV === 'development');
 
 module.exports = {
   target: 'node',
   mode: MODE,
-  watch: WATCH,
   devtool: 'source-map',
   entry: {
     server: [
@@ -31,16 +29,18 @@ module.exports = {
     noParse: /\.min\.js/,
   },
   externals: [
-    nodeExternals(),
+    nodeExternals({
+      whitelist: /babel-polyfill/,
+    }),
   ],
   plugins: [
     // This is only ran in watch mode
-    new NodemonPlugin({
-      ignore: ['*.js.map'],
-      nodeArgs: ['--inspect=0.0.0.0:9229'],
-      script: './index.js',
-      watch: SOURCE_PATH,
-    }),
+    // new NodemonPlugin({
+    //   ignore: ['*.js.map'],
+    //   nodeArgs: ['--inspect=0.0.0.0:9229'],
+    //   script: './index.js',
+    //   watch: SOURCE_PATH,
+    // }),
   ],
   optimization: {
     namedModules: true,

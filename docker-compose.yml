@@ -3,7 +3,6 @@ services:
   storemanager:
     build:
       context: .
-      dockerfile: docker/dev.Dockerfile
       args:
         NODE_ENV: development
     container_name: storemanager

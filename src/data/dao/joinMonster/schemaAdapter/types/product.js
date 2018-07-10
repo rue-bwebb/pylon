@@ -49,9 +49,9 @@ export default {
       showReturnPolicy: {
         sqlColumn: 'show_return_policy',
       },
-      // skus: {
-      //   sqlJoin: (productsTable, skusTable) => `${productsTable}.id = ${skusTable}.product_id`,
-      // },
+      skus: {
+        sqlJoin: (productsTable, skusTable) => `${productsTable}.id = ${skusTable}.product_id`,
+      },
       // tags: {
       //   sqlJoin: (productTable, tagsTable) => ``,
       // },
