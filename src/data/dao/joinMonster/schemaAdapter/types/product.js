@@ -50,7 +50,11 @@ export default {
         sqlColumn: 'show_return_policy',
       },
       skus: {
-        sqlJoin: (productsTable, skusTable) => `${productsTable}.id = ${skusTable}.product_id`,
+        sqlBatch: {
+          thisKey: 'product_id',
+          parentKey: 'id',
+        },
+        // sqlJoin: (productsTable, skusTable) => `${productsTable}.id = ${skusTable}.product_id`,
       },
       tags: {
         junction: {
