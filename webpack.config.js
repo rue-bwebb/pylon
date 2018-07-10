@@ -33,15 +33,7 @@ module.exports = {
       whitelist: /babel-polyfill/,
     }),
   ],
-  plugins: [
-    // This is only ran in watch mode
-    // new NodemonPlugin({
-    //   ignore: ['*.js.map'],
-    //   nodeArgs: ['--inspect=0.0.0.0:9229'],
-    //   script: './index.js',
-    //   watch: SOURCE_PATH,
-    // }),
-  ],
+  plugins: [],
   optimization: {
     namedModules: true,
     noEmitOnErrors: true,

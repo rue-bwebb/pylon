@@ -47,7 +47,7 @@ type Query {
   ): PaginatedProducts!
   productContext(boutiqueContext: ID!): ProductContexts!
   productTemplate: ProductTemplates!
-  returnPolicy: ReturnPolicies!
+  returnPolicy: PaginatedReturnPolicies!
   search(allForBoutique: ID, boutiqueContextId: ID, updatedSince: String): PaginatedProducts!
   segment(name: String!, type: String!): Segments!
 }

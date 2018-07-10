@@ -4,7 +4,12 @@ type ReturnPolicy {
   shortDescription: String!
 }
 
-type ReturnPolicies {
-  meta: PagingMeta!,
-  objects: [ReturnPolicy]!
+type ReturnPolicyEdge {
+  cursor: String!
+  node: ReturnPolicy
+}
+
+type PaginatedReturnPolicies {
+  edges: [ReturnPolicyEdge]
+  pageInfo: PageInfo
 }

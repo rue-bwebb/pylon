@@ -1,23 +1,23 @@
 type Product {
   active: Boolean!
   # attributes: [ProductAttribute]!
-  # brand: Brand!
+  brand: Brand!
   businessId: ID!
   forceSoldOut: Boolean!
   images: ProductImageSet!
-  # info: ProductInfo
+  info: ProductInfo
   isExperience: Boolean!
   longDescription: String!
   name: String!
   numAngles: Int!
   originalName: String!
   # productContexts: [ProductContext]!
-  # returnPolicy: [ReturnPolicy]
+  returnPolicy: ReturnPolicy,
   shortDescription: String!
   showMsrp: Boolean!
   showReturnPolicy: Boolean!
   skus: [Sku]!
-  # tags: [ProductTag]!
+  tags: [ProductTag]!
 }
 
 type ProductEdge {

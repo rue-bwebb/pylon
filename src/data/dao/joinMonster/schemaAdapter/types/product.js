@@ -7,18 +7,18 @@ export default {
         sqlColumn: 'active',
       },
       // attributes: {},
-      // brand: {
-      //   sqlJoin: (productsTable, brandsTable) => ``,
-      // },
+      brand: {
+        sqlJoin: (productsTable, brandsTable) => `${productsTable}.brand_id = ${brandsTable}.id`,
+      },
       businessId: {
         sqlColumn: 'business_id',
       },
       forceSoldOut: {
         sqlColumn: 'force_sold_out',
       },
-      // info: {
-      //   sqlJoin: (productsTable, infoTable) => ``,
-      // },
+      info: {
+        sqlJoin: (productsTable, infoTable) => `${productsTable}.id = ${infoTable}.product_id`,
+      },
       isExperience: {
         sqlColumn: 'is_experience',
       },
@@ -37,9 +37,9 @@ export default {
       // productContexts: {
       //   sqlJoin: (productsTable, productContextsTable) => ``,
       // },
-      // returnPolicy: {
-      //   sqlJoin: (productsTable, returnPoliciesTable) => ``,
-      // },
+      returnPolicy: {
+        sqlJoin: (productsTable, returnPoliciesTable) => `${productsTable}.return_policy_id = ${returnPoliciesTable}.id`,
+      },
       shortDescription: {
         sqlColumn: 'short_description',
       },
@@ -52,9 +52,15 @@ export default {
       skus: {
         sqlJoin: (productsTable, skusTable) => `${productsTable}.id = ${skusTable}.product_id`,
       },
-      // tags: {
-      //   sqlJoin: (productTable, tagsTable) => ``,
-      // },
+      tags: {
+        junction: {
+          sqlTable: 'products_product_tags',
+          sqlJoins: [
+            (productsTable, junctionTable, args) => `${productsTable}.id = ${junctionTable}.product_id`,
+            (junctionTable, tagsTable, args) => `${junctionTable}.producttag_id = ${tagsTable}.id`,
+          ],
+        },
+      },
     },
   },
 };
