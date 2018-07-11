@@ -9,7 +9,12 @@ type ProductContext {
   skus: [String]!
 }
 
-type ProductContexts {
-  meta: PagingMeta!
-  objects: [ProductContext]!
+type ProductContextEdge {
+  cursor: String!
+  node: ProductContext
+}
+
+type PaginatedProductContexts {
+  edges: [ProductContextEdge]
+  pageInfo: PageInfo
 }

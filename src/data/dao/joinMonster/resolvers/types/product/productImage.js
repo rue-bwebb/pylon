@@ -148,13 +148,11 @@ function getAllowedProductColors(product) {
 
 export default {
   ProductImage: {
-    caption: function (product, args) {
-      return ``;
+    caption: function (product, args, context, info) {
+      return '';
     },
     url: function (product, args) {
-      const builder = new ImageUrlBuilder();
-
-      return builder.build(product).toString();
+      return (new ImageUrlBuilder()).build(product).toString();
     },
   },
   ProductImageSet: {

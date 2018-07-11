@@ -1,4 +1,4 @@
-type Sku {
+type ProductSku {
   active: Boolean!
   # activeVendor: ActiveVendor
   # attributes: [SkuAttribute]!
@@ -9,7 +9,7 @@ type Sku {
   listPrice: String!
   msrp: String!
   # purchaseOrderItems: [PurchaseOrderItem]!
-  # purchaseOrders: [PurchaseOrder]!
+  purchaseOrders: [PurchaseOrder]!
   shippingUpcharge: String!
   skuNumber: String!
   termsAndConditions: String!

@@ -8,7 +8,10 @@ const SOURCE_PATH = path.resolve('./src');
 
 module.exports = {
   target: 'node',
-  mode: MODE,
+  // Known bug where string templates are stripped in uglify-js:
+  // https://github.com/webpack-contrib/uglifyjs-webpack-plugin/issues/279
+  // Re-enable production once bug is fixed.
+  mode: 'development',
   devtool: 'source-map',
   entry: {
     server: [

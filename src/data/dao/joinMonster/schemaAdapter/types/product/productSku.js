@@ -1,5 +1,5 @@
 export default {
-  Sku: {
+  ProductSku: {
     sqlTable: 'products_sku',
     uniqueKey: 'id',
     fields: {
@@ -20,6 +20,16 @@ export default {
       },
       msrp: {
         sqlColumn: 'msrp',
+      },
+      purchaseOrders: {
+        junction: {
+          sqlTable: 'purchaseorders_purchaseorderitem',
+          sqlJoins: [
+            (skuTable, poiTable) => `${skuTable}.id = ${poiTable}.sku_id`,
+            (poiTable, poTable) => `${poiTable}.po_number_id = ${poTable}.id`,
+          ],
+        },
+        // sqlJoin: (skuTable, purchasedOrdersTable) => `${skuTable}. = ${purchasedOrdersTable}.`
       },
       shippingUpcharge: {
         sqlColumn: 'shipping_upcharge',

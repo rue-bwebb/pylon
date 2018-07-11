@@ -6,8 +6,9 @@
   "private": true,
   "scripts": {
     "compile": "webpack --config ./webpack.config.js",
-    "dev": "npm run compile && node index.js",
-    "start": "pm2-docker start process.config.js",
+    "dev": "npm run compile && npm start",
+    "process": "pm2-docker start process.config.js",
+    "start": "node --inspect=0.0.0.0:9229 index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
@@ -53,6 +54,7 @@
     "koa-passport": "^4.1.0",
     "koa-router": "^7.4.0",
     "mysql": "^2.15.0",
+    "passport-custom": "^1.0.5",
     "pm2": "^2.10.4"
   }
 }

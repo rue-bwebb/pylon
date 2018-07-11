@@ -69,4 +69,4 @@ RUN npm run compile
 # However, if we are building a production image, then this will remove all dev dependencies
 RUN npm install
 
-CMD ["npm", "start"]
+CMD ["npm", "run", "process"]

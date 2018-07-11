@@ -8,17 +8,18 @@ let storemanager = {
 
 if (process.env.NODE_ENV === 'production') {
   storemanager = Object.assign(storemanager, {
+    args: ['start'],
+    script: 'npm',
     exec_mode: 'cluster',
-    instances: 0,
+    instances: 1,
     log_type: 'json',
-    script: './index.js',
   });
 } else {
   storemanager = Object.assign(storemanager, {
     // lolz https://github.com/Unitech/pm2/issues/2629
     args: ['run', 'dev'],
     script: 'npm',
-    watch: ["./config", "./src"],
+    watch: ['./config', './src'],
   });
 }
 

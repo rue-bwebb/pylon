@@ -18,16 +18,16 @@
 #import "./types/product/productContext.graphql"
 #import "./types/product/productImage.graphql"
 #import "./types/product/productInfo.graphql"
+#import "./types/product/productSku.graphql"
 #import "./types/product/productTag.graphql"
 #import "./types/product/productTemplate.graphql"
+#import "./types/product/sku/activeVendor.graphql"
+#import "./types/product/sku/skuAttribute.graphql"
+#import "./types/purchaseOrderItem.graphql"
+#import "./types/purchaseOrder.graphql"
 #import "./types/returnPolicy.graphql"
 #import "./types/segment.graphql"
 #import "./types/segment/segmentType.graphql"
-#import "./types/sku.graphql"
-#import "./types/sku/activeVendor.graphql"
-#import "./types/sku/skuAttribute.graphql"
-#import "./types/sku/purchaseOrderItem.graphql"
-#import "./types/sku/purchaseOrder.graphql"
 #import "./types/store.graphql"
 
 type Query {
@@ -45,9 +45,23 @@ type Query {
     last: Int,
     before: String
   ): PaginatedProducts!
-  productContext(boutiqueContext: ID!): ProductContexts!
+  productContext(
+    boutiqueContext: ID!,
+    first: Int,
+    after: String,
+    last: Int,
+    before: String
+  ): PaginatedProductContexts!
   productTemplate: ProductTemplates!
   returnPolicy: PaginatedReturnPolicies!
-  search(allForBoutique: ID, boutiqueContextId: ID, updatedSince: String): PaginatedProducts!
+  search(
+    allForBoutique: ID,
+    boutiqueContextId: ID,
+    updatedSince: String,
+    first: Int,
+    after: String,
+    last: Int,
+    before: String
+  ): PaginatedProducts!
   segment(name: String!, type: String!): Segments!
 }

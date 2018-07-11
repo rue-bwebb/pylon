@@ -9,26 +9,27 @@ function quote(str) {
   return `\`${str}\``;
 }
 
-function keysetPagingSelect(table, whereCondition, order, limit, as, options = {}) {
-  let {
-    joinCondition, joinType, extraJoin, q,
-  } = options;
+function stringifyWhereCondition(whereCondition) {
+  return whereCondition.filter(el => !!el).join(' AND ') || 'TRUE';
+}
 
-  q = q || quote;
-  whereCondition = filter(whereCondition).join(' AND ') || 'TRUE';
+function generateKeysetPagingJoinExpr(params, q) {
+  const { joinType, as, table, extraJoin, whereCondition, order, limit, joinCondition } = params;
 
-  if (joinCondition) {
-    return `\
+  return `\
 ${joinType || ''} JOIN (
-  SELECT ${q(as)}.*
-  FROM ${table} ${q(as)}
-  ${extraJoin ? `LEFT JOIN ${extraJoin.name} ${q(extraJoin.as)}
-    ON ${extraJoin.condition}` : ''}
-  WHERE ${whereCondition}
-  ORDER BY ${orderColumnsToString(order.columns, q, order.table)}
-  LIMIT ${limit}
+SELECT ${q(as)}.*
+FROM ${table} ${q(as)}
+${extraJoin ? `LEFT JOIN ${extraJoin.name} ${q(extraJoin.as)} ON ${extraJoin.condition}` : ''}
+WHERE ${whereCondition}
+ORDER BY ${orderColumnsToString(order.columns, q, order.table)}
+LIMIT ${limit}
 ) ${q(as)} ON ${joinCondition}`;
-  }
+}
+
+function generateKeysetPagingExpr(params, q) {
+  const { as, table, whereCondition, order, limit } = params;
+
   return `\
 FROM (
   SELECT ${q(as)}.*
@@ -39,27 +40,48 @@ FROM (
 ) ${q(as)}`;
 }
 
-function offsetPagingSelect(table, pagingWhereConditions, order, limit, offset, as, options = {}) {
+function keysetPagingSelect(table, whereCondition, order, limit, as, options) {
   let {
     joinCondition, joinType, extraJoin, q,
   } = options;
 
   q = q || quote;
-
-  const whereCondition = filter(pagingWhereConditions).join(' AND ') || 'TRUE';
+  whereCondition = stringifyWhereCondition(whereCondition);
 
   if (joinCondition) {
-    return `\
-${joinType || ''} JOIN (
-  SELECT ${q(as)}.*, count(*) OVER () AS ${q('$total')}
-  FROM ${table} ${q(as)}
-  ${extraJoin ? `LEFT JOIN ${extraJoin.name} ${q(extraJoin.as)}
-    ON ${extraJoin.condition}` : ''}
-  WHERE ${whereCondition}
-  ORDER BY ${orderColumnsToString(order.columns, q, order.table)}
-  LIMIT ${limit} OFFSET ${offset}
-) ${q(as)} ON ${joinCondition}`;
+    return generateKeysetPagingJoinExpr({
+      joinType,
+      as,
+      table,
+      extraJoin,
+      whereCondition,
+      order,
+      limit,
+      joinCondition,
+    }, q);
   }
+
+  return generateKeysetPagingExpr({ as, table, whereCondition, order, limit, }, q)
+}
+
+function generateOffsetPagingJoinExpr(params, q) {
+  const { joinType, as, table, extraJoin, whereCondition, order, limit, offset, joinCondition } = params;
+
+  return `\
+${joinType || ''} JOIN (
+SELECT ${q(as)}.*, count(*) OVER () AS ${q('$total')}
+FROM ${table} ${q(as)}
+${extraJoin ? `LEFT JOIN ${extraJoin.name} ${q(extraJoin.as)}
+  ON ${extraJoin.condition}` : ''}
+WHERE ${whereCondition}
+ORDER BY ${orderColumnsToString(order.columns, q, order.table)}
+LIMIT ${limit} OFFSET ${offset}
+) ${q(as)} ON ${joinCondition}`;
+}
+
+function generateOffsetPagingExpr(params, q) {
+  const { as, table, whereCondition, order, limit, offset } = params;
+
   return `\
 FROM (
   SELECT ${q(as)}.*, count(*) OVER () AS ${q('$total')}
@@ -68,6 +90,32 @@ FROM (
   ORDER BY ${orderColumnsToString(order.columns, q, order.table)}
   LIMIT ${limit} OFFSET ${offset}
 ) ${q(as)}`;
+}
+
+function offsetPagingSelect(table, pagingWhereConditions, order, limit, offset, as, options) {
+  let {
+    joinCondition, joinType, extraJoin, q,
+  } = options;
+
+  q = q || quote;
+
+  const whereCondition = stringifyWhereCondition(whereCondition);
+
+  if (joinCondition) {
+    return generateOffsetPagingJoinExpr({
+      joinType,
+      as,
+      table,
+      extraJoin,
+      whereCondition,
+      order,
+      limit,
+      offset,
+      joinCondition
+    }, q);
+  }
+
+  return generateOffsetPagingExpr({ as, table, whereCondition, order, limit, offset }, q);
 }
 
 
@@ -84,15 +132,13 @@ const dialect = {
     ];
 
     if (node.junction.where) {
-      pagingWhereConditions.push(
-        await node.junction.where(`\`${node.junction.as}\``, node.args || {}, context, node),
-      );
+      const whereResult = await node.junction.where(`\`${node.junction.as}\``, node.args || {}, context, node);
+      pagingWhereConditions.push(whereResult);
     }
 
     if (node.where) {
-      pagingWhereConditions.push(
-        await node.where(`\`${node.as}\``, node.args || {}, context, node),
-      );
+      const whereResult = await node.where(`\`${node.as}\``, node.args || {}, context, node);
+      pagingWhereConditions.push(whereResult);
     }
 
     const tempTable = `FROM (VALUES ${batchScope.map(val => `(${val})`)}) temp("${node.junction.sqlBatch.parentKey.name}")`;
@@ -138,9 +184,8 @@ const dialect = {
     ];
 
     if (node.where) {
-      pagingWhereConditions.push(
-        await node.where(`\`${node.as}\``, node.args || {}, context, node),
-      );
+      const whereResult = await node.where(`\`${node.as}\``, node.args || {}, context, node);
+      pagingWhereConditions.push(whereResult);
     }
 
     const tempTable = `FROM (VALUES ${batchScope.map(val => `(${val})`)}) temp("${node.sqlBatch.parentKey.name}")`;
@@ -168,20 +213,17 @@ const dialect = {
     }
   },
   async handleJoinedManyToManyPaginated(parent, node, context, tables, joinCondition1, joinCondition2) {
-    const pagingWhereConditions = [
-      await node.junction.sqlJoins[0](`\`${parent.as}\``, `\`${node.junction.as}\``, node.args || {}, context, node),
-    ];
+    const joinResult = await node.junction.sqlJoins[0](`\`${parent.as}\``, `\`${node.junction.as}\``, node.args || {}, context, node);
+    const pagingWhereConditions = [joinResult];
 
     if (node.junction.where) {
-      pagingWhereConditions.push(
-        await node.junction.where(`\`${node.junction.as}\``, node.args || {}, context, node),
-      );
+      const whereResult = await node.junction.where(`\`${node.junction.as}\``, node.args || {}, context, node);
+      pagingWhereConditions.push(whereResult);
     }
 
     if (node.where) {
-      pagingWhereConditions.push(
-        await node.where(`\`${node.as}\``, node.args || {}, context, node),
-      );
+      const whereResult = await node.where(`\`${node.as}\``, node.args || {}, context, node);
+      pagingWhereConditions.push(whereResult);
     }
 
     const lateralJoinOptions = { joinCondition: joinCondition1, joinType: 'LEFT' };
@@ -214,14 +256,12 @@ const dialect = {
     }
   },
   async handleJoinedOneToManyPaginated(parent, node, context, tables, joinCondition) {
-    const pagingWhereConditions = [
-      await node.sqlJoin(`\`${parent.as}\``, `\`${node.as}\``, node.args || {}, context, node),
-    ];
+    const joinResult = await node.sqlJoin(`\`${parent.as}\``, `\`${node.as}\``, node.args || {}, context, node)
+    const pagingWhereConditions = [joinResult];
 
     if (node.where) {
-      pagingWhereConditions.push(
-        await node.where(`\`${node.as}\``, node.args || {}, context, node),
-      );
+      const whereResult = await node.where(`\`${node.as}\``, node.args || {}, context, node);
+      pagingWhereConditions.push(whereResult);
     }
 
     // which type of pagination are they using?
@@ -252,25 +292,23 @@ const dialect = {
       pagingWhereConditions.push(whereAddendum);
 
       if (node.where) {
-        pagingWhereConditions.push(
-          await node.where(`\`${node.as}\``, node.args || {}, context, node),
-        );
+        const whereResult = await node.where(`\`${node.as}\``, node.args || {}, context, node);
+        pagingWhereConditions.push(whereResult);
       }
 
       tables.push(
-        keysetPagingSelect(node.name, pagingWhereConditions, order, limit, node.as),
+        keysetPagingSelect(node.name, pagingWhereConditions, order, limit, node.as, {}),
       );
     } else if (node.orderBy) {
       const { limit, offset, order } = interpretForOffsetPaging(node, dialect);
 
       if (node.where) {
-        pagingWhereConditions.push(
-          await node.where(`\`${node.as}\``, node.args || {}, context, node),
-        );
+        const whereResult = await node.where(`\`${node.as}\``, node.args || {}, context, node);
+        pagingWhereConditions.push(whereResult);
       }
 
       tables.push(
-        offsetPagingSelect(node.name, pagingWhereConditions, order, limit, offset, node.as),
+        offsetPagingSelect(node.name, pagingWhereConditions, order, limit, offset, node.as, {}),
       );
     }
   },

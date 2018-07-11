@@ -2,6 +2,7 @@ import config from 'config';
 import Koa from 'koa';
 import { ApolloServer } from 'vendor/apollo-server/packages/apollo-server-koa/dist';
 
+import authorizationGate from 'middleware/authorization';
 import passport from 'middleware/passport';
 import router from 'router';
 import ruecommerce from 'data/services/ruecommerce';
@@ -16,12 +17,15 @@ process.on('unhandledRejection', unhandledRejectionHandler);
 const app = new Koa();
 const apollo = new ApolloServer({ schema });
 
+// Mount the app router
+app.use(router.routes());
+app.use(router.allowedMethods());
+
 // Add the Passport middleware
 app.use(passport);
 
-// Mount the app HTTPS router (secure routes)
-app.use(router.routes());
-app.use(router.allowedMethods());
+// Prevent unauthorized access to the query endpoint
+app.use(authorizationGate);
 
 apollo.applyMiddleware({
   app,
