@@ -29,7 +29,9 @@ export default {
             (poiTable, poTable) => `${poiTable}.po_number_id = ${poTable}.id`,
           ],
         },
-        // sqlJoin: (skuTable, purchasedOrdersTable) => `${skuTable}. = ${purchasedOrdersTable}.`
+      },
+      purchaseOrderItems: {
+        sqlJoin: (skuTable, poiTable) => `${skuTable}.id = ${poiTable}.sku_id`,
       },
       shippingUpcharge: {
         sqlColumn: 'shipping_upcharge',

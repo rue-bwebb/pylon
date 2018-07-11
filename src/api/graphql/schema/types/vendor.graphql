@@ -1,0 +1,8 @@
+type Vendor {
+  businessKey: String
+  id: ID!
+  isActive: Boolean
+  name: String
+  shipsInMaxHours: Int
+  shipsInMinHours: Int
+}

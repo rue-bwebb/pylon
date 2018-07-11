@@ -15,7 +15,10 @@ process.on('uncaughtException', uncaughtExceptionHandler);
 process.on('unhandledRejection', unhandledRejectionHandler);
 
 const app = new Koa();
-const apollo = new ApolloServer({ schema, introspection: true, });
+const apollo = new ApolloServer({
+  schema,
+  introspection: config.graphql.introspection,
+});
 
 // Mount the app router
 app.use(router.routes());
@@ -27,6 +30,7 @@ app.use(passport);
 // Prevent unauthorized access to the query endpoint
 app.use(authorizationGate);
 
+// Create the graphql router and attach it to app
 apollo.applyMiddleware({
   app,
   gui: config.graphql.gui,
@@ -59,10 +63,7 @@ app.start = async function () {
  */
 app.stop = async function () {
   try {
-    if (app.http) {
-      app.http.close();
-    }
-
+    app.http.close();
     await ruecommerce.destroy();
   } catch (e) {
     console.error('An error occurred while stoping the server', e);
@@ -70,12 +71,18 @@ app.stop = async function () {
 };
 
 // nodemon compatibility
-process.once('SIGUSR2', async () => {
-  await app.stop();
-  process.kill(process.pid, 'SIGUSR2');
+// process.once('SIGUSR2', async () => {
+//   await app.stop();
+//   process.kill(process.pid, 'SIGUSR2');
+// });
+
+// pm2 graceful shutdown compatibility
+process.once('SIGINT', () => {
+  app.stop();
+  process.kill(process.pid, 'SIGINT');
 });
 
 // atexit handler
-process.once('exit', app.stop);
+process.on('exit', app.stop);
 
 export default app;

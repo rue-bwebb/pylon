@@ -1,4 +1,4 @@
-type PurchaseOrderItem {
+type ProductPurchaseOrderItem {
   cost: String!
   ruecolor: String!
   size: String!

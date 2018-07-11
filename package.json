@@ -6,10 +6,9 @@
   "private": true,
   "scripts": {
     "compile": "webpack --config ./webpack.config.js",
-    "dev": "npm run compile && npm run start:dev",
+    "dev": "npm run compile && npm start",
     "process": "pm2-docker start process.config.js",
     "start": "node index.js",
-    "start:dev": "node --inspect=0.0.0.0:9229 index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"

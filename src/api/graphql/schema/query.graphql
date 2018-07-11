@@ -18,17 +18,18 @@
 #import "./types/product/productContext.graphql"
 #import "./types/product/productImage.graphql"
 #import "./types/product/productInfo.graphql"
+#import "./types/product/productPurchaseOrderItem.graphql"
+#import "./types/product/productPurchaseOrder.graphql"
 #import "./types/product/productSku.graphql"
 #import "./types/product/productTag.graphql"
 #import "./types/product/productTemplate.graphql"
 #import "./types/product/sku/activeVendor.graphql"
 #import "./types/product/sku/skuAttribute.graphql"
-#import "./types/purchaseOrderItem.graphql"
-#import "./types/purchaseOrder.graphql"
 #import "./types/returnPolicy.graphql"
 #import "./types/segment.graphql"
 #import "./types/segment/segmentType.graphql"
 #import "./types/store.graphql"
+#import "./types/vendor.graphql"
 
 type Query {
   ats: AtsList!

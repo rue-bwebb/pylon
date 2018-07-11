@@ -8,8 +8,8 @@ type ProductSku {
   highlights: String!
   listPrice: String!
   msrp: String!
-  # purchaseOrderItems: [PurchaseOrderItem]!
-  purchaseOrders: [PurchaseOrder]!
+  purchaseOrderItems: [ProductPurchaseOrderItem]!
+  purchaseOrders: [ProductPurchaseOrder]!
   shippingUpcharge: String!
   skuNumber: String!
   termsAndConditions: String!

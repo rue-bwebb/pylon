@@ -1,5 +1,5 @@
 export default {
-  PurchaseOrder: {
+  ProductPurchaseOrder: {
     sqlTable: 'purchaseorders_purchaseorder',
     uniqueKey: 'id',
     fields: {
@@ -15,14 +15,8 @@ export default {
       poEtaDate: {
         sqlColumn: 'po_eta_date',
       },
-      shipsInMax: {
-        sqlColumn: '',
-      },
-      shipsInMin: {
-        sqlColumn: '',
-      },
-      vendorName: {
-        sqlColumn: '',
+      vendor: {
+        sqlJoin: (poTable, vendorTable) => `${poTable}.vendor_id = ${vendorTable}.id`,
       },
     },
   },
