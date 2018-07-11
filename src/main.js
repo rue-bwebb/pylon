@@ -15,7 +15,7 @@ process.on('uncaughtException', uncaughtExceptionHandler);
 process.on('unhandledRejection', unhandledRejectionHandler);
 
 const app = new Koa();
-const apollo = new ApolloServer({ schema });
+const apollo = new ApolloServer({ schema, introspection: true, });
 
 // Mount the app router
 app.use(router.routes());

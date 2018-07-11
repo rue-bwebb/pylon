@@ -7,9 +7,7 @@ import passport from 'koa-passport';
  */
 function promisifyPassportAuthorizeRoutine(strategy, ctx) {
   return new Promise(function (resolve, reject) {
-    debugger;
     return passport.authorize(strategy, function (err, user) {
-      debugger;
       if (err) {
         err.status = 500;
         return reject(err);
@@ -33,15 +31,18 @@ function promisifyPassportAuthorizeRoutine(strategy, ctx) {
  */
 export default async function authorizationGate (ctx, next) {
   try {
-    debugger;
     const user = await promisifyPassportAuthorizeRoutine('django', ctx);
 
     ctx.user = user;
 
     await next();
   } catch (e) {
-    debugger;
-    ctx.body = { message: e };
-    return ctx.throw(e.status);
+    // Tell koa to show the error message to the client
+    e.expose = true;
+
+    ctx.status = e.status;
+    ctx.body = { data: { error: { message: e.message } } };
+
+    ctx.app.emit('error', e, ctx);
   }
 }

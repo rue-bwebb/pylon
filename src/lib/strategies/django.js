@@ -7,7 +7,6 @@ class DjangoStrategy extends Strategy {
    * @return {[type]}     [description]
    */
   authorize(req) {
-    debugger;
     const verified = (err, user, info) => {
       if (err) {
         return this.error(err);
@@ -34,10 +33,15 @@ class DjangoStrategy extends Strategy {
  * @param  {Function} done [description]
  * @return {[type]}        [description]
  */
-const djangoStrategy = new DjangoStrategy(function(req, done) {
-  debugger;
-  const user = { id: 123 };
-  return done(null, user);
+const djangoStrategy = new DjangoStrategy(function(ctx, done) {
+  // TODO this will block the browser-based graphql playground.
+  // Something we want to account for? Or is it ok to require a login before using it?
+  if ('authorization' in ctx.header) {
+    const user = { id: 123 };
+    return done(null, user);
+  }
+
+  return done(null, false);
 });
 
 export default djangoStrategy;
