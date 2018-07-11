@@ -1,3 +1,4 @@
+import config from 'config';
 import { Strategy } from 'passport-custom';
 
 class DjangoStrategy extends Strategy {
@@ -28,20 +29,28 @@ class DjangoStrategy extends Strategy {
 }
 
 /**
+ * [isGraphQlPlaygroundView description]
+ * @param  {[type]}  ctx [description]
+ * @return {Boolean}     [description]
+ */
+function isGraphQlPlaygroundView(ctx) {
+  const requestingGQLP = (ctx.method.toLowerCase() === 'get' && ctx.url === config.graphql.url);
+  return requestingGQLP && config.graphql.gui;
+}
+
+/**
  * [description]
  * @param  {[type]}   req  [description]
  * @param  {Function} done [description]
  * @return {[type]}        [description]
  */
 const djangoStrategy = new DjangoStrategy(function(ctx, done) {
-  // TODO this will block the browser-based graphql playground.
-  // Something we want to account for? Or is it ok to require a login before using it?
-  if ('authorization' in ctx.header) {
-    const user = { id: 123 };
-    return done(null, user);
+  if (!isGraphQlPlaygroundView(ctx) && !('authorization' in ctx.header)) {
+    return done(null, false);
   }
 
-  return done(null, false);
+  const user = { id: 123 };
+  return done(null, user);
 });
 
 export default djangoStrategy;

@@ -16,10 +16,9 @@ if (process.env.NODE_ENV === 'production') {
   });
 } else {
   storemanager = Object.assign(storemanager, {
-    // lolz https://github.com/Unitech/pm2/issues/2629
     args: ['run', 'dev'],
     script: 'npm',
-    watch: ['./config', './src'],
+    watch: ['./src', './config'],
   });
 }
 

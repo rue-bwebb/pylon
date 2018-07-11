@@ -1,5 +1,6 @@
 module.exports = {
   graphql: {
+    gui: (process.env.NODE_ENV === 'development'),
     url: '/query',
   },
   passport: {},

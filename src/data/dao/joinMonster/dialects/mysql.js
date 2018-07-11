@@ -16,28 +16,36 @@ function stringifyWhereCondition(whereCondition) {
 function generateKeysetPagingJoinExpr(params, q) {
   const { joinType, as, table, extraJoin, whereCondition, order, limit, joinCondition } = params;
 
-  return `\
-${joinType || ''} JOIN (
-SELECT ${q(as)}.*
-FROM ${table} ${q(as)}
-${extraJoin ? `LEFT JOIN ${extraJoin.name} ${q(extraJoin.as)} ON ${extraJoin.condition}` : ''}
-WHERE ${whereCondition}
-ORDER BY ${orderColumnsToString(order.columns, q, order.table)}
-LIMIT ${limit}
-) ${q(as)} ON ${joinCondition}`;
+  /**
+   * TODO Re-add multi line when this bug if fixed:
+   * https://github.com/webpack-contrib/uglifyjs-webpack-plugin/issues/279
+   * `\
+ ${joinType || ''} JOIN (
+ SELECT ${q(as)}.*
+ FROM ${table} ${q(as)}
+ ${extraJoinCond}
+ WHERE ${whereCondition}
+ ORDER BY ${orderColumnsToString(order.columns, q, order.table)}
+ LIMIT ${limit}
+ ) ${q(as)} ON ${joinCondition}`
+   */
+  const extraJoinCond = extraJoin ? `LEFT JOIN ${extraJoin.name} ${q(extraJoin.as)} ON ${extraJoin.condition}` : '';
+  return `${joinType || ''} JOIN (SELECT ${q(as)}.* FROM ${table} ${q(as)} ${extraJoinCond} WHERE ${whereCondition} ORDER BY ${orderColumnsToString(order.columns, q, order.table)} LIMIT ${limit}) ${q(as)} ON ${joinCondition}`;
 }
 
 function generateKeysetPagingExpr(params, q) {
   const { as, table, whereCondition, order, limit } = params;
 
-  return `\
-FROM (
-  SELECT ${q(as)}.*
-  FROM ${table} ${q(as)}
-  WHERE ${whereCondition}
-  ORDER BY ${orderColumnsToString(order.columns, q, order.table)}
-  LIMIT ${limit}
-) ${q(as)}`;
+  /**
+  FROM (
+    SELECT ${q(as)}.*
+    FROM ${table} ${q(as)}
+    WHERE ${whereCondition}
+    ORDER BY ${orderColumnsToString(order.columns, q, order.table)}
+    LIMIT ${limit}
+  ) ${q(as)}`;
+   */
+  return `FROM (SELECT ${q(as)}.* FROM ${table} ${q(as)} WHERE ${whereCondition} ORDER BY ${orderColumnsToString(order.columns, q, order.table)} LIMIT ${limit}) ${q(as)}`;
 }
 
 function keysetPagingSelect(table, whereCondition, order, limit, as, options) {
@@ -67,29 +75,34 @@ function keysetPagingSelect(table, whereCondition, order, limit, as, options) {
 function generateOffsetPagingJoinExpr(params, q) {
   const { joinType, as, table, extraJoin, whereCondition, order, limit, offset, joinCondition } = params;
 
-  return `\
-${joinType || ''} JOIN (
-SELECT ${q(as)}.*, count(*) OVER () AS ${q('$total')}
-FROM ${table} ${q(as)}
-${extraJoin ? `LEFT JOIN ${extraJoin.name} ${q(extraJoin.as)}
-  ON ${extraJoin.condition}` : ''}
-WHERE ${whereCondition}
-ORDER BY ${orderColumnsToString(order.columns, q, order.table)}
-LIMIT ${limit} OFFSET ${offset}
-) ${q(as)} ON ${joinCondition}`;
+  /**
+  ${joinType || ''} JOIN (
+  SELECT ${q(as)}.*, count(*) OVER () AS ${q('$total')}
+  FROM ${table} ${q(as)}
+  ${extraJoinCond}
+    ON ${extraJoin.condition}` : ''}
+  WHERE ${whereCondition}
+  ORDER BY ${orderColumnsToString(order.columns, q, order.table)}
+  LIMIT ${limit} OFFSET ${offset}
+  ) ${q(as)} ON ${joinCondition}`;
+   */
+  const extraJoinCond = extraJoin ? `LEFT JOIN ${extraJoin.name} ${q(extraJoin.as)} ON ${extraJoin.condition}` : '';
+  return `${joinType || ''} JOIN (SELECT ${q(as)}.*, count(*) OVER () AS ${q('$total')} FROM ${table} ${q(as)} ${extraJoinCond} WHERE ${whereCondition} ORDER BY ${orderColumnsToString(order.columns, q, order.table)} LIMIT ${limit} OFFSET ${offset}) ${q(as)} ON ${joinCondition}`;
 }
 
 function generateOffsetPagingExpr(params, q) {
   const { as, table, whereCondition, order, limit, offset } = params;
 
-  return `\
-FROM (
-  SELECT ${q(as)}.*, count(*) OVER () AS ${q('$total')}
-  FROM ${table} ${q(as)}
-  WHERE ${whereCondition}
-  ORDER BY ${orderColumnsToString(order.columns, q, order.table)}
-  LIMIT ${limit} OFFSET ${offset}
-) ${q(as)}`;
+  /**
+  FROM (
+    SELECT ${q(as)}.*, count(*) OVER () AS ${q('$total')}
+    FROM ${table} ${q(as)}
+    WHERE ${whereCondition}
+    ORDER BY ${orderColumnsToString(order.columns, q, order.table)}
+    LIMIT ${limit} OFFSET ${offset}
+  ) ${q(as)}`;
+   */
+  return `FROM (SELECT ${q(as)}.*, count(*) OVER () AS ${q('$total')} FROM ${table} ${q(as)} WHERE ${whereCondition} ORDER BY ${orderColumnsToString(order.columns, q, order.table)} LIMIT ${limit} OFFSET ${offset}) ${q(as)}`;
 }
 
 function offsetPagingSelect(table, pagingWhereConditions, order, limit, offset, as, options) {

@@ -29,6 +29,7 @@ app.use(authorizationGate);
 
 apollo.applyMiddleware({
   app,
+  gui: config.graphql.gui,
   path: config.graphql.url,
 });
 
