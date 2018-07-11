@@ -1,19 +1,3 @@
-###############################################################################
-# TODO Remove this once apollo-server-koa@rc has been tagged
-###############################################################################
-
-FROM node:10 as vendor
-
-ENV VENDOR_DIR=/tmp/apollo-server
-
-COPY ./vendor/apollo-server/ ${VENDOR_DIR}
-
-RUN cd ${VENDOR_DIR} && npm install --unsafe-perm && npm run compile
-
-###############################################################################
-# End TODO
-###############################################################################
-
 FROM node:10-alpine
 
 EXPOSE 8000
@@ -43,24 +27,7 @@ WORKDIR ${APP_DIR}
 # 2. Build production dist in that env and build image, pulling in the dist into the image
 RUN NODE_ENV=development npm install
 
-###############################################################################
-# TODO Use this when we get rid of vendor
-# COPY . ${APP_DIR}/
-###############################################################################
-
-###############################################################################
-# TODO Remove this once apollo-server-koa@rc has been tagged
-###############################################################################
-COPY --chown=app:root ./config                         ${APP_DIR}/config/
-COPY --chown=app:root ./src                            ${APP_DIR}/src/
-COPY --chown=app:root ./.babelrc                       ${APP_DIR}/
-COPY --chown=app:root ./index.js                       ${APP_DIR}/
-COPY --chown=app:root ./process.config.js              ${APP_DIR}/
-COPY --chown=app:root ./webpack.config.js              ${APP_DIR}/
-COPY --chown=app:root --from=vendor /tmp/apollo-server ${APP_DIR}/vendor/apollo-server
-###############################################################################
-# End TODO
-###############################################################################
+COPY --chown=app:root . ${APP_DIR}/
 
 RUN npm run compile
 

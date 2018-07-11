@@ -1,5 +1,5 @@
 import joinMonsterAdapt from 'join-monster-graphql-tools-adapter';
-import { makeExecutableSchema } from 'vendor/apollo-server/packages/apollo-server-koa/dist';
+import { makeExecutableSchema } from 'apollo-server-koa';
 
 import resolvers from 'data/dao/joinMonster/resolvers';
 import schemaAdapter from 'data/dao/joinMonster/schemaAdapter';

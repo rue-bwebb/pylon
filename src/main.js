@@ -1,6 +1,6 @@
 import config from 'config';
 import Koa from 'koa';
-import { ApolloServer } from 'vendor/apollo-server/packages/apollo-server-koa/dist';
+import { ApolloServer } from 'apollo-server-koa';
 
 import authorizationGate from 'middleware/authorization';
 import passport from 'middleware/passport';
