@@ -1,7 +1,4 @@
-import joinMonster from 'join-monster';
-
-import mysql from 'data/dao/joinMonster/dialects/mysql';
-import ruecommerce from 'data/services/ruecommerce';
+import { createRuecommerceResolver } from 'data/dao/joinMonster';
 
 export default {
   Query: {
@@ -26,11 +23,9 @@ export default {
     async owners(root, args, context, info) {
       return {};
     }, // Owners!
-    products: (root, args, ctx, resolveInfo) => {
-      return joinMonster(resolveInfo, ctx, async (sql) => {
-        const result = await ruecommerce.raw(sql);
-        return result[0];
-      }, { dialectModule: mysql });
+    products: productContext(root, args, context, info) {
+      const resolver = createRuecommerceResolver();
+      return resolver(context, info);
     },
     async productContext(root, args, context, info) {
       return {};

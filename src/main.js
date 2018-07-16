@@ -6,7 +6,7 @@ import authorizationGate from 'middleware/authorization';
 import passport from 'middleware/passport';
 import router from 'router';
 import ruecommerce from 'data/services/ruecommerce';
-import schema from 'data/dao/joinMonster';
+import schema from 'api/graphql';
 import uncaughtExceptionHandler from 'utils/uncaughtExceptionHandler';
 import unhandledRejectionHandler from 'utils/unhandledRejectionHandler';
 

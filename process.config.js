@@ -6,6 +6,7 @@ let storemanager = {
   name: 'storemanager.ruelala',
   out_file: '/var/log/ruelala/storemanager/pm2.out.log',
   restart_delay: 1500,
+  treekill: false,
   wait_ready: true,
 };
 

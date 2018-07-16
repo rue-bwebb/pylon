@@ -8,7 +8,7 @@ import {
   EXTENSION_MAP,
   PRODUCT_TYPE,
   TYPE_MAPPING
-} from 'data/dao/joinMonster/resolvers/constants';
+} from 'api/graphql/resolvers/constants';
 
 /**
  * [ImageUrlBuilder description]
