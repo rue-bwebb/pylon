@@ -1,6 +1,5 @@
 const path = require('path');
 const nodeExternals = require('webpack-node-externals');
-// const NodemonPlugin = require('nodemon-webpack-plugin');
 
 const { NODE_ENV } = process.env;
 const MODE = (NODE_ENV === 'production') ? 'production' : 'development';

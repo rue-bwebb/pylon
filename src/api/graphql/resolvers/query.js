@@ -23,7 +23,7 @@ export default {
     async owners(root, args, context, info) {
       return {};
     }, // Owners!
-    products: productContext(root, args, context, info) {
+    products(root, args, context, info) {
       const resolver = createRuecommerceResolver();
       return resolver(context, info);
     },

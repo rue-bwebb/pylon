@@ -1,4 +1,4 @@
-FROM node:10-alpine
+FROM node:10-alpine as build
 
 EXPOSE 8000
 
@@ -20,20 +20,23 @@ COPY --chown=app:root ./package.json ./package-lock.json ${APP_DIR}/
 
 WORKDIR ${APP_DIR}
 
-# Build the ${NODE_ENV} dist using the build dev dependencies
-# These will be cleaned up later if we're building a production image
-# Ideally, however, we're doing a two-step process in something like travis ci for non dev images:
-# 1. Create dev environment, run tests (done in travis.yaml)
-# 2. Build production dist in that env and build image, pulling in the dist into the image
-RUN NODE_ENV=development npm install
+# Install all dependencies. This is required for testing and will be cleaned up
+# later if we're build ing a production imagex
+RUN npm ci --production=false
 
+FROM build as test
+
+# TODO be specific about what we're copying here!
 COPY --chown=app:root . ${APP_DIR}/
 
-RUN npm run compile
+CMD ["npm", "test"]
 
-# Run an install to ensure that node_modules is properly cleaned for the target env
-# If we are building a development image, then this is a no-op since we installed dev dependencies.
-# However, if we are building a production image, then this will remove all dev dependencies
-RUN npm install
+FROM test
+
+# If we're in NODE_ENV=production, clean up the dev dependencies
+RUN npm ci
+
+# Build the <NODE_ENV> dist/bundle
+RUN npm run compile
 
 CMD ["npm", "run", "process"]
